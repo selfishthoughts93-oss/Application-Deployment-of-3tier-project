@@ -348,32 +348,29 @@ global:
 
 scrape_configs:
 
-  - job_name: 'prometheus'
-    static_configs:
-      - targets:
-          - 'localhost:9090'
+  - job_name: "prometheus"
 
-  - job_name: 'docker-server'
     static_configs:
       - targets:
-          - '35.224.241.73:9100'
+          - localhost:9090
 
-  - job_name: 'jenkins-server'
-    static_configs:
-      - targets:
-          - '136.65.127.248:9100'
+  - job_name: "jenkins"
 
-  - job_name: 'jenkins'
-    metrics_path: /prometheus
     static_configs:
       - targets:
-          - '136.65.127.248:8080'
+          - JENKINS-IP:9100
 
-  - job_name: 'gke-kube-state-metrics'
-    metrics_path: /metrics
+  - job_name: "sonarqube"
+
     static_configs:
       - targets:
-          - '34.27.136.133:30080'
+          - SONAR-IP:9100
+
+  - job_name: "monitoring"
+
+    static_configs:
+      - targets:
+          - MONITORING-IP:9100
 ```
 
 Save:
