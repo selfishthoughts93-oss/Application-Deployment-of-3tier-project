@@ -206,7 +206,7 @@ Navigate to the Ansible directory on the Jenkins VM.
 Create:
 
 ```text
-monitoring-node-exporter-installation.yml
+sudo nano monitoring-node-exporter-installation.yml
 ```
 
 ---
@@ -276,6 +276,12 @@ monitoring-node-exporter-installation.yml
 
 ---
 
+Run:
+
+```bash
+ansible-playbook -i hosts monitoring-node-exporter-installation.yml
+```
+
 # Verify Node Exporter Installation
 
 Run:
@@ -337,7 +343,7 @@ SSH into the Monitoring VM.
 Create:
 
 ```bash
-nano prometheus.yml
+sudo nano prometheus.yml
 ```
 
 Paste:
@@ -566,47 +572,6 @@ Click:
 
 ```text
 Import
-```
-
----
-
-# Verify Dashboard Metrics
-
-Navigate to:
-
-```text
-Dashboards
-→ Dashboards
-→ Node Exporter Full
-```
-
-Verify the following metrics:
-
-* CPU Usage
-* Memory Usage
-* Disk Usage
-* Network Traffic
-* Load Average
-* Filesystem Usage
-
-All graphs should display live metrics.
-
----
-
-# Monitoring Phase Status
-
-## Dashboard 1: Node Exporter Full
-
-Status:
-
-```text
-Completed
-```
-
-Dashboard ID:
-
-```text
-1860
 ```
 
 ---
