@@ -1,6 +1,4 @@
-# 05-Jenkins-Pipeline-Configuration.md
-
-# Jenkins Pipeline Configuration for SecureBank GKE Project
+# 05-Jenkins Pipeline Configuration for SecureBank GKE Project
 
 ## Objective
 
