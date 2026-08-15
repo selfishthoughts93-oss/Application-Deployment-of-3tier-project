@@ -571,29 +571,6 @@ gke-securebank-nodepool-yyyyy Ready
 
 ---
 
-# Authenticate Jenkins VM
-
-```bash
-gcloud config set project bankingproject2027
-
-gcloud auth login
-```
-
-Verify:
-
-```bash
-gcloud auth list
-```
-
-Expected:
-
-```text
-ACTIVE ACCOUNT
-* your-email@gmail.com
-```
-
----
-
 # Install GKE Authentication Plugin
 
 ```bash
@@ -622,9 +599,7 @@ Enable Plugin:
 
 ```bash
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
 echo 'export USE_GKE_GCLOUD_AUTH_PLUGIN=True' >> ~/.bashrc
-
 source ~/.bashrc
 ```
 
@@ -632,6 +607,28 @@ Verify:
 
 ```bash
 which gke-gcloud-auth-plugin
+```
+
+---
+# Authenticate Jenkins VM
+
+```bash
+gcloud auth login
+
+gcloud config set project bankingproject2027
+```
+
+Verify:
+
+```bash
+gcloud auth list
+```
+
+Expected:
+
+```text
+ACTIVE ACCOUNT
+* your-email@gmail.com
 ```
 
 ---
