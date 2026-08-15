@@ -218,7 +218,7 @@ ls -lh
 Create the playbook:
 
 ```bash
-nano Basic-Packages-install.yml
+sudo nano Basic-Packages-install.yml
 ```
 
 Use:
@@ -282,7 +282,7 @@ ansible-playbook -i hosts Basic-Packages-install.yml
 Create:
 
 ```bash
-nano Docker-install.yml
+sudo nano Docker-install.yml
 ```
 
 Use:
@@ -357,7 +357,7 @@ ansible docker -i hosts -m command -a "docker ps"
 Create:
 
 ```bash
-nano Monitoring-install.yml
+sudo nano Monitoring-install.yml
 ```
 
 Use:
@@ -466,13 +466,13 @@ ansible monitoring -i hosts -b -m command -a "docker ps"
 Prometheus:
 
 ```text
-http://136.112.98.192:9090
+http://Monitoring External IP:9090
 ```
 
 Grafana:
 
 ```text
-http://136.112.98.192:3000
+http://Monitoring External IP:3000
 ```
 
 ---
@@ -484,7 +484,7 @@ http://136.112.98.192:3000
 Create:
 
 ```bash
-nano SonarQube-install.yml
+sudo nano SonarQube-install.yml
 ```
 
 Use:
