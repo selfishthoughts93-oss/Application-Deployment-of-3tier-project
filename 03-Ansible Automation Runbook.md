@@ -10,10 +10,10 @@
 
 | Server | IP Address | Host Group | Primary Role |
 |---|---:|---|---|
-| Jenkins | `136.115.122.174` | `master` | Jenkins + Ansible Controller |
-| Docker | `34.44.81.210` | `docker` | Docker workloads |
-| Monitoring | `136.112.98.192` | `monitoring` | Prometheus + Grafana |
-| SonarQube | `34.27.72.86` | `sonar` | SonarQube + PostgreSQL |
+| Jenkins | `Jenkins Ex-IP` | `master` | Jenkins + Ansible Controller |
+| Docker | `Docker Ex-IP` | `docker` | Docker workloads |
+| Monitoring | `Monitoring Ex-IP` | `monitoring` | Prometheus + Grafana |
+| SonarQube | `Sonar Ex-IP` | `sonar` | SonarQube + PostgreSQL |
 
 ### Architecture
 
@@ -61,22 +61,8 @@ Press **Enter** for the default path:
 
 For passwordless authentication, leave the passphrase empty when prompted.
 
-### Verify the keys
 
-```bash
-ls -l ~/.ssh/id_ed25519
-ls -l ~/.ssh/id_ed25519.pub
-```
-
-### Recommended permissions
-
-```bash
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/id_ed25519
-chmod 644 ~/.ssh/id_ed25519.pub
-```
-
-### Copy the public key to a managed server
+# 03 Copy the public key to a managed server
 
 Example:
 
@@ -96,56 +82,6 @@ ssh docker@34.44.81.210
 ssh monitoring@136.112.98.192
 ssh sonar@34.27.72.86
 ssh master@136.115.122.174
-```
-
----
-
-# 👤 3. Required Server Users
-
-Create the dedicated users directly on their respective servers.
-
-| Server | User |
-|---|---|
-| Docker | `docker` |
-| Monitoring | `monitoring` |
-| SonarQube | `sonar` |
-| Jenkins | `master` |
-
-Example:
-
-```bash
-sudo adduser docker
-sudo usermod -aG sudo docker
-```
-
-For monitoring:
-
-```bash
-sudo adduser monitoring
-sudo usermod -aG sudo monitoring
-```
-
-For SonarQube:
-
-```bash
-sudo adduser sonar
-sudo usermod -aG sudo sonar
-```
-
-For the Jenkins/Ansible controller:
-
-```bash
-sudo adduser master
-sudo usermod -aG sudo master
-```
-
-Verify:
-
-```bash
-id docker
-id monitoring
-id sonar
-id master
 ```
 
 ---
@@ -171,13 +107,6 @@ master ALL=(ALL) NOPASSWD: ALL
 
 > ⚠️ `NOPASSWD: ALL` provides full administrative access. Use it only in a controlled lab or where your security policy permits it.
 
-Verify:
-
-```bash
-sudo -l
-```
-
----
 
 # 📁 5. Ansible Installation
 
@@ -193,7 +122,7 @@ ansible --version
 Create the working directory:
 
 ```bash
-mkdir -p ~/ansible
+sudo mkdir -p ~/ansible
 cd ~/ansible
 ```
 
@@ -204,39 +133,27 @@ cd ~/ansible
 Create the inventory file named **`hosts`**:
 
 ```bash
-nano hosts
+sudo nano hosts
 ```
 
 Use:
 
 ```ini
 [docker]
-34.44.81.210 ansible_user=docker
+External Docker-IP ansible_user=docker
 
 [monitoring]
-136.112.98.192 ansible_user=monitoring
+External Monitoring-IP ansible_user=monitoring
 
 [sonar]
-34.27.72.86 ansible_user=sonar
+External Sonar-IP ansible_user=sonar
 
 [master]
-136.115.122.174 ansible_user=master
+External Jenkins-IP ansible_user=master
 
 [all:vars]
 ansible_ssh_private_key_file=~/.ssh/id_ed25519
 ansible_python_interpreter=/usr/bin/python3
-```
-
-Verify the inventory:
-
-```bash
-ansible-inventory -i hosts --graph
-```
-
-List all hosts:
-
-```bash
-ansible all -i hosts --list-hosts
 ```
 
 ---
@@ -1105,10 +1022,10 @@ ansible master -i hosts -m command -a "mvn -version"
 
 | Application | URL |
 |---|---|
-| Jenkins | `http://136.115.122.174:8080` |
-| SonarQube | `http://34.27.72.86:9000` |
-| Prometheus | `http://136.112.98.192:9090` |
-| Grafana | `http://136.112.98.192:3000` |
+| Jenkins | `http://Jenkins External IP:8080` |
+| SonarQube | `http://Sonar External IP:9000` |
+| Prometheus | `http://Prometheus External IP:9090` |
+| Grafana | `http://Grafana External IP:3000` |
 
 > Ensure the corresponding GCP VPC firewall rules allow TCP ports `8080`, `9000`, `9090`, and `3000` from the required source networks.
 
