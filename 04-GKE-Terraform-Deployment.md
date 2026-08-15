@@ -327,8 +327,7 @@ NODES           : 2
 # Configure kubectl Authentication
 
 ```bash
-gcloud container clusters get-credentials securebank-gke \
---zone asia-south1-c
+gcloud container clusters get-credentials securebank-gke \ --zone asia-south1-c
 ```
 
 Verify:
